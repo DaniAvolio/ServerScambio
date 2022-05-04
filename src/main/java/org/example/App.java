@@ -21,19 +21,16 @@ public class App {
         //inizialize
         System.out.println("Server Started...");
         ServerSocket serverSocket = null;
+        //inizialize serversocket
+        try {
+            serverSocket = new ServerSocket(portNumber);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         while (true) {
-
-
-            //inizialize serversocket
-            try {
-                serverSocket = new ServerSocket(portNumber);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             //inizialize clientsocket and inizialize conncetion!
 
-            System.out.println("Accepting...");
+            System.out.println("Accepting client...");
             try {
                 assert serverSocket != null;
                 clientSocket = serverSocket.accept();
@@ -46,6 +43,8 @@ public class App {
             ch.processl();
             try {
                 clientSocket.close();
+                System.out.println("Client quit");
+                System.out.println("Server restarting...");
             } catch (IOException e) {
                 e.printStackTrace();
             }
