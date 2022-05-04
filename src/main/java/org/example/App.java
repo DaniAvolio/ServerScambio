@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Locale;
 
 /**
  * Hello world!
@@ -30,18 +29,22 @@ public class App
         Socket clientSocket = null;
         System.out.println("Accepting...");
         try {
+            assert serverSocket != null;
             clientSocket = serverSocket.accept();
             System.out.println("Client Accepted");
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         BufferedReader in = null;
         try {
+            assert clientSocket != null;
             in  = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         PrintWriter out = null;
         try {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -49,19 +52,22 @@ public class App
             e.printStackTrace();
         }
 
-        String s=null;
-        try {
-            while ((s = in.readLine()) != null)  {
-                System.out.println("Received : "+s);
-                out.println(s.toUpperCase());
-                out.flush();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        assert in != null;
+        processl(in,out);
 
     }
-        
+        private static void processl(BufferedReader in, PrintWriter out){
+    try {
+        String s;
+        while ((s = in.readLine()) != null)  {
+            System.out.println("Received : "+s);
+            out.println(s.toUpperCase());
+            out.flush();
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 
 
 
