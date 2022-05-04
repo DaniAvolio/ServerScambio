@@ -61,8 +61,21 @@ public class App
         String s;
         while ((s = in.readLine()) != null)  {
             System.out.println("Received : "+s);
-            out.println(s.toUpperCase());
-            out.flush();
+
+            if(s.contains("+")){
+                int iz=s.indexOf("+");
+               int c1 = Integer.parseInt( s.substring(0,iz) );
+               int c2 = Integer.parseInt( s.substring(iz+1) );
+               int somma= c1+c2;
+               out.println("Risultato: "+somma);
+                out.flush();
+            }
+            else{
+                out.println("you have not entered any operations");
+                out.flush();
+            }
+            //out.println(s.toUpperCase());
+
         }
     } catch (IOException e) {
         e.printStackTrace();
