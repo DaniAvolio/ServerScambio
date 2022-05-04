@@ -8,8 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Hello world!
- *
+ * SERVER!!
+ * CREATE A SIMPLE SERVER THAT RESPONSE WITH THE SUM OF TWO PARAMETERS
  */
 public class App
 {
@@ -18,44 +18,54 @@ public class App
     static int portNumber = 1234;
     public static void main( String[] args )
     {
-        System.out.println("Server Started...");
-        ServerSocket serverSocket = null;
-        try {
-            serverSocket = new ServerSocket(portNumber);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            //inizialize
+            System.out.println("Server Started...");
+            ServerSocket serverSocket = null;
 
-        Socket clientSocket = null;
-        System.out.println("Accepting...");
-        try {
-            assert serverSocket != null;
-            clientSocket = serverSocket.accept();
-            System.out.println("Client Accepted");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            //inizialize serversocket
+            try {
+                serverSocket = new ServerSocket(portNumber);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        BufferedReader in = null;
-        try {
-            assert clientSocket != null;
-            in  = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            //inizialize clientsocket and inizialize conncetion!
+            Socket clientSocket = null;
+            System.out.println("Accepting...");
+            try {
+                assert serverSocket != null;
+                clientSocket = serverSocket.accept();
+                System.out.println("Client Accepted");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        PrintWriter out = null;
-        try {
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+            //receive bufferedreader for input
+            BufferedReader in = null;
+            try {
+                assert clientSocket != null;
+                in = new BufferedReader(
+                        new InputStreamReader(clientSocket.getInputStream()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        assert in != null;
-        processl(in,out);
+
+            //inizialiaze printwriter for output, so for the response of the server
+            PrintWriter out = null;
+            try {
+                out = new PrintWriter(clientSocket.getOutputStream(), true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //call of the function for the process
+            assert in != null;
+            processl(in, out);
+
 
     }
+    //funcion process : server receive input from the cleint, process and responde in ths functions
         private static void processl(BufferedReader in, PrintWriter out){
     try {
         String s;
